@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://cv4r1t76hlkss"]
+
+[ext_resource type="PackedScene" uid="uid://c2hyyw4lksfhf" path="res://scenes/shop_upgrade_slot.tscn" id="1_lx5au"]
+
+[sub_resource type="GDScript" id="GDScript_lx5au"]
+script/source = "extends Control
+
+
+@export var bucket_capacity_slot: Slot
+@export var player_speed_slot: Slot
+@export var bucket_empty_speed_slot: Slot
+
+
+func _ready() -> void:
+	bucket_capacity_slot.buy_clicked.connect(_on_bucket_capacity_buy_clicked) # hears the emitetd signal frommm buy_clicked
+	player_speed_slot.buy_clicked.connect(_on_player_speed_buy_clicked)
+	bucket_empty_speed_slot.buy_clicked.connect(_on_bucket_empty_speed_buy_clicked)
+	update_all_slots()
+	hide()
+
+
+func _on_bucket_capacity_buy_clicked() -> void:
+	Global.bucket_capacity_upgrade()
+	update_all_slots()
+
+
+func _on_player_speed_buy_clicked() -> void:
+	Global.speed_level_upgrade()
+	update_all_slots()
+	
+	
+func _on_bucket_empty_speed_buy_clicked() -> void:
+	Global.empty_speed_upgrade()
+	update_all_slots()
+
+
+func update_all_slots() -> void:
+	
+	bucket_capacity_slot.update_upgrade_slot(
+		\"Bucket Capacity\",
+		Global.bucket_capacity_level,
+		Global.get_bucket_capacity_cost()
+	)
+	
+	player_speed_slot.update_upgrade_slot(
+		\"Player Speed\",
+		Global.speed_level,
+		Global.get_speed_cost()
+	)
+	
+	bucket_empty_speed_slot.update_upgrade_slot(
+		\"Empty Speed\",
+		Global.empty_speed_level,
+		Global.get_empty_speed_cost()
+	)
+	
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"shop\"):
+		visible  = !visible
+		# When you press a key, Godot offers it to the UI elements first. 
+		# If the UI doesn't use it, Godot passes it to _unhandled_input().
+
+
+func _on_close_button_pressed() -> void:
+	hide()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sn0t7"]
+bg_color = Color(0.45084327, 0.8225959, 0.87133986, 0.54901963)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Shop" type="Control" unique_id=2106621303 node_paths=PackedStringArray("bucket_capacity_slot", "player_speed_slot", "bucket_empty_speed_slot")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_lx5au")
+bucket_capacity_slot = NodePath("Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Bucket_Capacity")
+player_speed_slot = NodePath("Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Player_Speed")
+bucket_empty_speed_slot = NodePath("Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Bucket_Empty_Speed")
+
+[node name="Dim" type="ColorRect" parent="." unique_id=1293503733]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.007843138, 0.12941177, 0.33333334)
+
+[node name="Container" type="PanelContainer" parent="Dim" unique_id=1066216195]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sn0t7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Dim/Container" unique_id=190681224]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Dim/Container/MarginContainer" unique_id=335521916]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Dim/Container/MarginContainer/VBoxContainer" unique_id=241331212]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dim/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=830965082]
+layout_mode = 2
+text = "UPGRADES"
+
+[node name="Label2" type="Label" parent="Dim/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2108193653]
+layout_mode = 2
+text = "Water: "
+horizontal_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Dim/Container/MarginContainer/VBoxContainer" unique_id=613984932]
+layout_mode = 2
+size_flags_vertical = 3
+accessibility_region = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer" unique_id=773888545]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+columns = 3
+
+[node name="Bucket_Capacity" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=1833989276 instance=ExtResource("1_lx5au")]
+layout_mode = 2
+
+[node name="Player_Speed" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=1718330752 instance=ExtResource("1_lx5au")]
+layout_mode = 2
+
+[node name="Bucket_Empty_Speed" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=620671080 instance=ExtResource("1_lx5au")]
+layout_mode = 2
+
+[node name="ShopUpgradeSlot4" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=365208930 instance=ExtResource("1_lx5au")]
+layout_mode = 2
+
+[node name="ShopUpgradeSlot5" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=1416055430 instance=ExtResource("1_lx5au")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Dim/Container/MarginContainer/VBoxContainer" unique_id=2147422621]
+layout_mode = 2
+text = "CLOSE"
+
+[connection signal="pressed" from="Dim/Container/MarginContainer/VBoxContainer/Button" to="." method="_on_close_button_pressed"]

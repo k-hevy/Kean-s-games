@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dn4war6ncffae"]
+
+[ext_resource type="Texture2D" uid="uid://5dkstnay3vu" path="res://graphics/raindrop.png" id="1_rh3xa"]
+
+[sub_resource type="GDScript" id="GDScript_vlwrh"]
+script/source = "extends Area2D
+
+var fall_speed: int = 400
+
+func _physics_process(_delta: float) -> void:
+	position.y += fall_speed * _delta
+	
+
+
+func _on_body_entered(_body: Node) -> void:
+	if _body.name == \"Player\":
+		Global.water += 1
+		queue_free()
+		
+	queue_free()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhunq"]
+radius = 2.0
+height = 12.0
+
+[node name="Raindrop" type="Area2D" unique_id=951945515]
+script = SubResource("GDScript_vlwrh")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=801899599]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_bhunq")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=974031315]
+scale = Vector2(2, 2)
+texture = ExtResource("1_rh3xa")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
