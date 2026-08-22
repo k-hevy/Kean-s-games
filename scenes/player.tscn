@@ -2,11 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cjdj2fpbgdidr" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://dlc5y4s6nil1" path="res://scenes/bucket.tscn" id="3_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(112, 99)
 
 [node name="Player" type="CharacterBody2D" unique_id=795105538]
+collision_layer = 2
 script = ExtResource("1_g2els")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=397989147]
@@ -20,3 +22,6 @@ shape = SubResource("RectangleShape2D_bhunq")
 zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
+
+[node name="Bucket" parent="." unique_id=1810336552 instance=ExtResource("3_qhqgy")]
+scale = Vector2(4, 4)

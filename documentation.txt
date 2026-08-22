@@ -1,0 +1,27 @@
+This setup automates the art pipeline. Saving an asset in Aseprite automatically updates it inside Godot without requiring manual .png exports.
+## 1. Initial Setup & Configuration
+
+* Installed the Aseprite Wizard plugin via the Godot AssetLib.
+* Enabled the plugin under Project Settings > Plugins.
+* Linked Godot to the local Aseprite executable (aseprite.exe) via Project > Tools > Aseprite Wizard > Config (or Editor Settings > Aseprite).
+
+## 2. File Management
+
+* Located the native Godot project directory by right-clicking res:// in the FileSystem dock and selecting Open in File Manager.
+* Configured Aseprite to save original .aseprite / .ase files directly inside this project folder.
+* Pinned the Godot folder in Aseprite for faster access.
+
+## 3. Godot Import Pipeline (Method 2)
+
+* Selected the .aseprite file within the Godot FileSystem dock.
+* Navigated to the Import tab (next to the Scene tab) to define how Godot processes the file:
+* Aseprite Texture: Used for static assets (e.g., backgrounds, UI, props). Column settings can be ignored for single images.
+   * Aseprite SpriteFrames: Used for animated assets to auto-generate loops based on Aseprite frame tags.
+* Disabled the Texture Filter (set to Nearest) to preserve sharp pixel art edges.
+* Clicked Reimport to finalize the asset conversion.
+
+## 4. Active Workflow Loop
+
+   1. Edit art in Aseprite.
+   2. Press Ctrl + S to save.
+   3. Switch to Godot; the plugin automatically updates the asset in the scene.

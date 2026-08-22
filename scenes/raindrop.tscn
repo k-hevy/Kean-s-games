@@ -9,14 +9,13 @@ var fall_speed: int = 400
 
 func _physics_process(_delta: float) -> void:
 	position.y += fall_speed * _delta
-	
 
 
-func _on_body_entered(_body: Node) -> void:
-	if _body.name == \"Player\":
-		Global.water += 1
-		queue_free()
-		
+func _on_area_entered(_area: Area2D) -> void:
+	queue_free()
+
+
+func _on_body_entered(_body: Node2D) -> void:
 	queue_free()
 "
 
@@ -24,7 +23,9 @@ func _on_body_entered(_body: Node) -> void:
 radius = 2.0
 height = 12.0
 
-[node name="Raindrop" type="Area2D" unique_id=951945515]
+[node name="Raindrop" type="Area2D" unique_id=951945515 groups=["raindrops"]]
+collision_layer = 8
+collision_mask = 5
 script = SubResource("GDScript_vlwrh")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=801899599]
@@ -35,4 +36,5 @@ shape = SubResource("CapsuleShape2D_bhunq")
 scale = Vector2(2, 2)
 texture = ExtResource("1_rh3xa")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
