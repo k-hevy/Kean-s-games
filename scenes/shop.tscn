@@ -12,46 +12,51 @@ script/source = "extends Control
 
 
 func _ready() -> void:
+	# Emits signals when clicked
 	bucket_capacity_slot.buy_clicked.connect(_on_bucket_capacity_buy_clicked) # hears the emitetd signal frommm buy_clicked
 	player_speed_slot.buy_clicked.connect(_on_player_speed_buy_clicked)
 	bucket_empty_speed_slot.buy_clicked.connect(_on_bucket_empty_speed_buy_clicked)
+	
+	# Updates slots
 	update_all_slots()
+	
+	# Hides The UI upon loading
 	hide()
 
 
+# Buy upgrades
 func _on_bucket_capacity_buy_clicked() -> void:
-	Global.bucket_capacity_upgrade()
+	Global.buy_upgrade(\"bucket_capacity\")
 	update_all_slots()
-
 
 func _on_player_speed_buy_clicked() -> void:
-	Global.speed_level_upgrade()
+	Global.buy_upgrade(\"player_speed\")
 	update_all_slots()
-	
 	
 func _on_bucket_empty_speed_buy_clicked() -> void:
-	Global.empty_speed_upgrade()
+	Global.buy_upgrade(\"empty_speed\")
 	update_all_slots()
 
 
+# Updates Display
 func update_all_slots() -> void:
 	
 	bucket_capacity_slot.update_upgrade_slot(
 		\"Bucket Capacity\",
-		Global.bucket_capacity_level,
-		Global.get_bucket_capacity_cost()
+		Global.levels[\"bucket_capacity\"],
+		Global.get_cost(\"bucket_capacity\")
 	)
 	
 	player_speed_slot.update_upgrade_slot(
 		\"Player Speed\",
-		Global.speed_level,
-		Global.get_speed_cost()
+		Global.levels[\"player_speed\"],
+		Global.get_cost(\"player_speed\")
 	)
 	
 	bucket_empty_speed_slot.update_upgrade_slot(
 		\"Empty Speed\",
-		Global.empty_speed_level,
-		Global.get_empty_speed_cost()
+		Global.levels[\"empty_speed\"],
+		Global.get_cost(\"empty_speed\")
 	)
 	
 	

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_6iw28"]
 [ext_resource type="Script" uid="uid://cbgbhx0gx5dja" path="res://scripts/Slot.gd" id="1_f3j4h"]
 
-[node name="ShopUpgradeSlot" type="Panel" unique_id=1833989276 node_paths=PackedStringArray("texture_upgrade", "name_upgrade", "level_upgrade", "cost_upgrade", "button_upgrade")]
+[node name="Slot" type="Panel" unique_id=1833989276 node_paths=PackedStringArray("texture_upgrade", "name_upgrade", "level_upgrade", "cost_upgrade", "button_upgrade")]
 custom_minimum_size = Vector2(160, 220)
 offset_right = 160.0
 offset_bottom = 220.0

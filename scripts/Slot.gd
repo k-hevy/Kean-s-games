@@ -7,8 +7,6 @@ extends Panel
 @export var cost_upgrade: Label
 @export var button_upgrade: Button
 
-#var type_upgrade: String = "" # Dynamically gets assigned in shop
-
 signal buy_clicked
 
 func _ready() -> void:
@@ -18,6 +16,7 @@ func _ready() -> void:
 func _on_button_upgrade_pressed() -> void:
 	buy_clicked.emit()
 	#tells that this button was pressed and emits this signal
+
 
 func update_upgrade_slot(title_text: String, level: int, cost: float) -> void:
 	name_upgrade.text = title_text 
