@@ -2,26 +2,51 @@
 
 [ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cjdj2fpbgdidr" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="SpriteFrames" uid="uid://c66yvcheycnrh" path="res://graphics/player.aseprite" id="2_dqkch"]
 [ext_resource type="PackedScene" uid="uid://dlc5y4s6nil1" path="res://scenes/bucket.tscn" id="3_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
-size = Vector2(112, 99)
+size = Vector2(17, 48)
 
 [node name="Player" type="CharacterBody2D" unique_id=795105538]
 collision_layer = 2
+collision_mask = 17
 script = ExtResource("1_g2els")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2049879445]
+sprite_frames = ExtResource("2_dqkch")
+autoplay = "default"
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false,
+"pending_changes": {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "",
+"source_uid": -1
+}
+}
+
 [node name="Sprite" type="Sprite2D" parent="." unique_id=397989147]
+visible = false
 texture = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=683391680]
-position = Vector2(0, -1.5)
+position = Vector2(0.5, 3)
 shape = SubResource("RectangleShape2D_bhunq")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1953592985]
-zoom = Vector2(0.8, 0.8)
+offset = Vector2(0, -50)
+zoom = Vector2(0.7, 0.7)
+limit_bottom = 230
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
 [node name="Bucket" parent="." unique_id=1810336552 instance=ExtResource("3_qhqgy")]
-scale = Vector2(4, 4)
+position = Vector2(0, 5)

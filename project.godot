@@ -21,6 +21,8 @@ Global="*uid://d3v4cph6o7jjx"
 
 [display]
 
+window/size/viewport_width=320
+window/size/viewport_height=180
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -69,6 +71,7 @@ rendering/root_node_auto_translate=false
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Bucket"
 2d_physics/layer_4="Raindrop"
+2d_physics/layer_5="Shop"
 
 [physics]
 

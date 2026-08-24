@@ -1,5 +1,8 @@
 extends Node
 
+#signal for a succesful upgrade
+signal upgrade_purchased(upgrade_name: String, new_value: float)
+
 # Loads the Json file upon Loading
 func _ready() -> void:
 	var file =  FileAccess.open("res://data/upgrades.json", FileAccess.READ)
@@ -36,3 +39,7 @@ func buy_upgrade(upgrade_name: String) -> void:
 	if levels[upgrade_name] < 10 and water >= cost:
 		water -= cost
 		levels[upgrade_name] += 1
+		
+		# Siganl is emitetd to update player
+		var new_value = get_effect(upgrade_name)
+		upgrade_purchased.emit(upgrade_name, new_value)

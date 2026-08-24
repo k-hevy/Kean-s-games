@@ -5,15 +5,30 @@
 [sub_resource type="GDScript" id="GDScript_jyhfs"]
 script/source = "extends Node2D
 
-var speed: int = 100
+@export var speed: int = 100
 
 func _physics_process(_delta: float) -> void:
 	position.x -= speed * _delta
+
+
+signal spawn_raindrop(spanwn_pos: Vector2)
+
+
+func _spanwn_raindrop() -> void:
+	var width = $Sprite2D.texture.get_width() * scale.x
+	var random_x = randf_range(-width / 2, width /2)
+	var spawn_pos = global_position + Vector2(random_x, 15)
+	spawn_raindrop.emit(spawn_pos)
 "
 
 [node name="Cloud" type="Node2D" unique_id=1928703927]
 script = SubResource("GDScript_jyhfs")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1876530018]
-scale = Vector2(11.119792, 11.109376)
 texture = ExtResource("1_vlwrh")
+
+[node name="Timer" type="Timer" parent="." unique_id=1788736804]
+wait_time = 0.108
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_spanwn_raindrop"]

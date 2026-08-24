@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://d0bf4lkjbkfv1"]
+
+[ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_caxx5"]
+
+[sub_resource type="GDScript" id="GDScript_caxx5"]
+script/source = "extends Node2D
+
+@onready var timer: Timer = $Timer
+
+
+#Add a check here to check for ONLY the player entering
+func _on_area_2d_body_entered(_player: Node2D) -> void:
+	timer.start()
+
+func _on_area_2d_body_exited(_player: Node2D) -> void:
+	timer.stop()
+	drain()
+
+func _on_timer_timeout() -> void:
+	drain()
+	
+func drain() -> void:
+	print(drain)
+	if Global.water > 0:
+		var empty_speed = Global.get_effect(\"empty_speed\")
+		if Global.water > empty_speed:
+			Global.water -= empty_speed
+			Global.tokens += empty_speed
+		else:
+			Global.tokens += Global.water 
+			Global.water = 0
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(129.99998, 140.00002)
+
+[node name="Sell" type="Node2D" unique_id=1000930941]
+scale = Vector2(0.2, 0.2)
+script = SubResource("GDScript_caxx5")
+
+[node name="Timer" type="Timer" parent="." unique_id=1116253607]
+wait_time = 0.5
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=759275716]
+texture = ExtResource("1_caxx5")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=2105323881]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=592046271]
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_exited"]

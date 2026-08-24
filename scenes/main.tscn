@@ -2,52 +2,66 @@
 
 [ext_resource type="Script" uid="uid://e86apt1be60h" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bujvas6l2n77w" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="2_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://br2n7gupbh616" path="res://graphics/sky.aseprite" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://dtsnvmu3ynaa6" path="res://graphics/foreground.aseprite" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c2glgb24ktqhw" path="res://scenes/cloud.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://bh7iijwtbnyx3" path="res://graphics/ground.aseprite" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://cv4r1t76hlkss" path="res://scenes/shop.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://d0bf4lkjbkfv1" path="res://scenes/sell.tscn" id="8_tipki"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
-size = Vector2(2145, 63)
+size = Vector2(2145, 15.5)
 
 [node name="Main" type="Node2D" unique_id=183145768]
 script = ExtResource("1_0wfyh")
 
-[node name="Platform" type="StaticBody2D" parent="." unique_id=420825850]
+[node name="Sky" type="Parallax2D" parent="." unique_id=1279917613]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(640, 180)
+repeat_times = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Platform" unique_id=724787489]
-position = Vector2(74, 629.5)
-scale = Vector2(16.828125, 0.50781256)
-texture = ExtResource("2_jyhfs")
+[node name="Sprite2D" type="Sprite2D" parent="Sky" unique_id=1921692461]
+texture = ExtResource("2_tefeu")
+centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=206767276]
-position = Vector2(78.5, 626.5)
+[node name="Trees" type="Parallax2D" parent="." unique_id=482738561]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(640, 0)
+repeat_times = 4
+
+[node name="Sprite2D2" type="Sprite2D" parent="Trees" unique_id=468976612]
+texture = ExtResource("3_o6xl0")
+centered = false
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=420825850]
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground" unique_id=724787489]
+texture = ExtResource("4_tipki")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=206767276]
+position = Vector2(48, 176)
 shape = SubResource("RectangleShape2D_bhunq")
 
 [node name="Cloud" parent="." unique_id=1166162645 instance=ExtResource("3_sugp2")]
-position = Vector2(556, 54)
+position = Vector2(502, 56)
 
 [node name="RainDrops" type="Node" parent="." unique_id=2000732464]
-
-[node name="Timer" type="Timer" parent="." unique_id=652982734]
-wait_time = 0.108
-autostart = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1015364696]
 
 [node name="Water_Score" type="Label" parent="UI" unique_id=314016858]
-offset_left = 16.0
-offset_top = 3.0
-offset_right = 108.0
-offset_bottom = 26.0
-scale = Vector2(2, 2)
-text = "water"
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 50.0
+offset_bottom = 22.0
+text = "Water"
 
 [node name="Token_Score" type="Label" parent="UI" unique_id=100326021]
-offset_left = 17.0
-offset_top = 48.0
-offset_right = 109.0
-offset_bottom = 71.0
-scale = Vector2(2, 2)
+offset_left = 4.0
+offset_top = 19.0
+offset_right = 52.0
+offset_bottom = 42.0
 text = "Token"
 
 [node name="Shop" parent="UI" unique_id=2106621303 instance=ExtResource("5_tbgi4")]
@@ -58,6 +72,10 @@ offset_right = 16.0
 offset_bottom = 3.0
 
 [node name="Player" parent="." unique_id=795105538 instance=ExtResource("1_o5qli")]
-position = Vector2(472, 469)
+position = Vector2(374, 136)
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="Cloud2" parent="." unique_id=1928703927 instance=ExtResource("3_sugp2")]
+position = Vector2(368, 42)
+
+[node name="Sell" parent="." unique_id=1000930941 instance=ExtResource("8_tipki")]
+position = Vector2(238.00002, 147.00002)

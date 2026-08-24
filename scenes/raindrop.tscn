@@ -29,11 +29,9 @@ collision_mask = 5
 script = SubResource("GDScript_vlwrh")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=801899599]
-scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_bhunq")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=974031315]
-scale = Vector2(2, 2)
 texture = ExtResource("1_rh3xa")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
