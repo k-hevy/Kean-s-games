@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var jump_strength: int  = 200
 @export var gravity: int = 800
 
-@export var player_speed: int = 200
+@export var player_speed: float = 200
 @export var empty_speed = 10
 @export var bucket_capacity = 25
 

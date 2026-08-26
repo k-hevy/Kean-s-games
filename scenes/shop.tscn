@@ -60,11 +60,10 @@ func update_all_slots() -> void:
 	)
 	
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(\"shop\"):
-		visible  = !visible
-		# When you press a key, Godot offers it to the UI elements first. 
-		# If the UI doesn't use it, Godot passes it to _unhandled_input().
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event.is_action_pressed(\"shop\"):
+		#visible  = !visible
+		
 
 
 func _on_close_button_pressed() -> void:

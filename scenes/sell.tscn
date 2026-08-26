@@ -20,8 +20,7 @@ func _on_timer_timeout() -> void:
 	drain()
 	
 func drain() -> void:
-	print(drain)
-	if Global.water > 0:
+	if Global.water > 0 and Input.is_action_pressed(\"drain\"):
 		var empty_speed = Global.get_effect(\"empty_speed\")
 		if Global.water > empty_speed:
 			Global.water -= empty_speed

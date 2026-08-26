@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(17, 48)
 
-[node name="Player" type="CharacterBody2D" unique_id=795105538]
+[node name="Player" type="CharacterBody2D" unique_id=795105538 groups=["Player"]]
 collision_layer = 2
 collision_mask = 17
 script = ExtResource("1_g2els")

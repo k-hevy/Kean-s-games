@@ -9,7 +9,7 @@ script/source = "extends Area2D
 @export var min_radius: float = 30.0
 @export var smooth_speed: float = 15.0
 @export var max_radius: float = 800.0
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = %Sprite2D
 var pop_tween: Tween
 
 func _process(_delta: float) -> void:
@@ -100,6 +100,7 @@ position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2111478709]
+unique_name_in_owner = true
 texture = ExtResource("1_ojsi1")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
