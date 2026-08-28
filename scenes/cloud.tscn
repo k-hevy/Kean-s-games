@@ -6,29 +6,60 @@
 script/source = "extends Node2D
 
 @export var speed: int = 100
-
-func _physics_process(_delta: float) -> void:
-	position.x -= speed * _delta
-
-
 signal spawn_raindrop(spanwn_pos: Vector2)
 
+var is_fading := false
+var choices = [-1, 1]
+var direct: int
+var lifespan: float = 0.0
+var tween: Tween
+var MAX_LIFESPAN = 6.0
+var FADE = 1.4
 
-func _spanwn_raindrop() -> void:
+
+func _ready() -> void:
+	direct = choices.pick_random()
+
+
+func _physics_process(_delta: float) -> void:
+	
+	lifespan +=  _delta
+	position.x += (direct) * speed * _delta
+	
+	if lifespan > MAX_LIFESPAN - FADE and !is_fading :
+		is_fading = true
+		tween = create_tween()
+		tween.tween_property(self, \"modulate:a\", 0.0, FADE)
+		$Spawn_Raindop_Counter.stop()
+		tween.tween_callback(queue_free)
+
+
+func _spanwn_raindrop_timer() -> void:
 	var width = $Sprite2D.texture.get_width() * scale.x
 	var random_x = randf_range(-width / 2, width /2)
 	var spawn_pos = global_position + Vector2(random_x, 15)
 	spawn_raindrop.emit(spawn_pos)
+
+
+func _life_span_timer() -> void:
+	lifespan += 1
+	
 "
 
-[node name="Cloud" type="Node2D" unique_id=1928703927]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(48, 20)
+
+[node name="Cloud" type="Area2D" unique_id=1300425149]
 script = SubResource("GDScript_jyhfs")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1876530018]
 texture = ExtResource("1_vlwrh")
 
-[node name="Timer" type="Timer" parent="." unique_id=1788736804]
-wait_time = 0.108
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1552570442]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Spawn_Raindop_Counter" type="Timer" parent="." unique_id=2117064112]
+wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_spanwn_raindrop"]
+[connection signal="timeout" from="Spawn_Raindop_Counter" to="." method="_spanwn_raindrop_timer"]

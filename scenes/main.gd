@@ -1,20 +1,21 @@
 extends Node2D
 
 const RAINDROP_SCENE = preload("res://scenes/raindrop.tscn")
-@onready var cloud1 := %Cloud1
-@onready var cloud2 := %Cloud2
+const CLOUD_SCENE = preload("res://scenes/cloud.tscn")
 
 
 func _ready() -> void:
-	cloud1.spawn_raindrop.connect(_on_spawn_drop)
-	cloud2.spawn_raindrop.connect(_on_spawn_drop)
-
-
-func spawn_cloud() -> void:
 	pass
 
 
 func _on_spawn_drop(drop_pos : Vector2) -> void:
 	var rain_drop = RAINDROP_SCENE.instantiate() as Area2D
 	rain_drop.global_position = drop_pos
-	$RainDrops.add_child(rain_drop)
+	%RainDrops.add_child(rain_drop)
+
+
+func _on_spawn_cloud_timeout() -> void:
+	var cloud = CLOUD_SCENE.instantiate() as Area2D
+	cloud.global_position = %Cloud_Spawnpoint.position
+	cloud.spawn_raindrop.connect(_on_spawn_drop)
+	%Clouds.add_child(cloud)

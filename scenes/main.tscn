@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bujvas6l2n77w" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://br2n7gupbh616" path="res://graphics/sky.aseprite" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dtsnvmu3ynaa6" path="res://graphics/foreground.aseprite" id="3_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://c2glgb24ktqhw" path="res://scenes/cloud.tscn" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://bh7iijwtbnyx3" path="res://graphics/ground.aseprite" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://d0bf4lkjbkfv1" path="res://scenes/sell.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://d1tt3wsdnbmyh" path="res://scenes/shop_area.tscn" id="9_85g3d"]
@@ -17,16 +16,6 @@ size = Vector2(2145, 15.5)
 script = ExtResource("1_0wfyh")
 
 [node name="Background" type="Node" parent="." unique_id=1316622746]
-
-[node name="Ground" type="StaticBody2D" parent="Background" unique_id=420825850]
-
-[node name="Sprite2D" type="Sprite2D" parent="Background/Ground" unique_id=724787489]
-texture = ExtResource("4_tipki")
-centered = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Ground" unique_id=206767276]
-position = Vector2(48, 176)
-shape = SubResource("RectangleShape2D_bhunq")
 
 [node name="Sky" type="Parallax2D" parent="Background" unique_id=1279917613]
 scroll_scale = Vector2(0.2, 0.2)
@@ -43,31 +32,52 @@ repeat_size = Vector2(640, 0)
 repeat_times = 4
 
 [node name="Sprite2D2" type="Sprite2D" parent="Background/Trees" unique_id=468976612]
+position = Vector2(-3, -14)
 texture = ExtResource("3_o6xl0")
 centered = false
 
-[node name="RainDrops" type="Node" parent="." unique_id=2000732464]
+[node name="Ground" type="StaticBody2D" parent="Background" unique_id=420825850]
 
-[node name="Clouds" type="Node" parent="." unique_id=215910676]
+[node name="Sprite2D" type="Sprite2D" parent="Background/Ground" unique_id=724787489]
+texture = ExtResource("4_tipki")
+centered = false
 
-[node name="Cloud1" parent="Clouds" unique_id=1166162645 instance=ExtResource("3_sugp2")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Ground" unique_id=206767276]
+position = Vector2(48, 176)
+shape = SubResource("RectangleShape2D_bhunq")
+
+[node name="Timers" type="Node" parent="." unique_id=1568158423]
+
+[node name="Spawn_Cloud" type="Timer" parent="Timers" unique_id=318019340]
+wait_time = 3.0
+autostart = true
+
+[node name="Markers" type="Node" parent="." unique_id=669843970]
+
+[node name="Cloud_Spawnpoint" type="Marker2D" parent="Markers" unique_id=1080905565]
 unique_name_in_owner = true
-position = Vector2(502, 56)
-
-[node name="Cloud2" parent="Clouds" unique_id=1928703927 instance=ExtResource("3_sugp2")]
-unique_name_in_owner = true
-position = Vector2(368, 42)
-
-[node name="Drain" parent="." unique_id=1000930941 instance=ExtResource("8_tipki")]
-position = Vector2(238.00002, 147.00002)
+position = Vector2(400, 41.999992)
+rotation = -2.8797934
 
 [node name="objects" type="Node" parent="." unique_id=1874329076]
 
-[node name="shop_area" parent="objects" unique_id=1011327478 instance=ExtResource("9_85g3d")]
+[node name="Shop_Area" parent="objects" unique_id=1011327478 instance=ExtResource("9_85g3d")]
+unique_name_in_owner = true
 position = Vector2(466, 147)
+
+[node name="Drain_Area" parent="objects" unique_id=1000930941 instance=ExtResource("8_tipki")]
+position = Vector2(238.00002, 147.00002)
+
+[node name="Clouds" type="Node" parent="objects" unique_id=215910676]
+unique_name_in_owner = true
+
+[node name="RainDrops" type="Node" parent="objects" unique_id=2000732464]
+unique_name_in_owner = true
 
 [node name="Player" parent="." unique_id=795105538 instance=ExtResource("1_o5qli")]
 z_index = 1
 position = Vector2(374, 136)
 
 [node name="Game_Hud" parent="." unique_id=1812007228 instance=ExtResource("9_choun")]
+
+[connection signal="timeout" from="Timers/Spawn_Cloud" to="." method="_on_spawn_cloud_timeout"]
