@@ -12,6 +12,8 @@ script/source = "extends Area2D
 @onready var sprite: Sprite2D = %Sprite2D
 var pop_tween: Tween
 
+signal spawn_text(text: String, pos: Vector2)
+
 func _process(_delta: float) -> void:
 	
 	# Gets the mouse positon relaitve to the Player not the Bucket
@@ -31,15 +33,21 @@ func _process(_delta: float) -> void:
 	position =  position.lerp(target_position, smooth_speed * _delta)
 
 
-func _on_area_entered(_area: Area2D) -> void:
+func _on_area_entered(raindrop: Area2D) -> void:
 	# checks if the body is a raindrop
-	if _area.is_in_group(\"raindrops\"):
-		Global.water += 1
-		_area.queue_free()
-		pop_animation()
+	if raindrop.is_in_group(\"raindrops\"):
+		if Global.water < Global.get_effect(\"bucket_capacity\"):
+			Global.water += raindrop.value
+			if Global.water > Global.get_effect(\"bucket_capacity\"):
+				Global.water = Global.get_effect(\"bucket_capacity\") # Sets it so it does go over the max
+			raindrop.queue_free()
+			pop_animation(str(raindrop.value))
+		else:
+			raindrop.queue_free()
+			pop_animation(\"full\")
 
 
-func pop_animation() -> void:
+func pop_animation(points: String) -> void:
 	
 	# Kills animation tween early
 	if pop_tween and pop_tween.is_running():
@@ -52,45 +60,13 @@ func pop_animation() -> void:
 	pop_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	pop_tween.tween_property(sprite, \"scale\", Vector2(1.0, 1.0), 0.25)
 	
-	spawn_pop_text(\"+1\")
-	
-func spawn_pop_text(txt: String) -> void:
-	
-	#Initialization
-	var label = Label.new()
-	label.text = txt
-	label.position = Vector2(-20, -30)
-	label.modulate = Color(0.0, 0.428, 0.803, 1.0)
-	add_child(label)
-	
-	# Tells the twin to run all aniamtions simultaneously
-	var text_tween = create_tween().set_parallel(true)
-	
-	# obj, property, final position, duration
-	text_tween.tween_property(label, \"position:y\", label.position.y - 30.0, 0.6)
-	text_tween.tween_property(label, \"modulate:a\", 0.0, 0.6)
-	
-	# Pauses parallel behavior and deletes the text
-	text_tween.chain().tween_callback(label.queue_free)
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	spawn_text.emit(points, global_position)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(22, 23)
 
-[node name="Bucket" type="Area2D" unique_id=1810336552]
+[node name="Bucket" type="Area2D" unique_id=1810336552 groups=["bucket"]]
 collision_layer = 4
 collision_mask = 8
 script = SubResource("GDScript_4mj0c")
@@ -99,7 +75,7 @@ script = SubResource("GDScript_4mj0c")
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_g4v7s")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2111478709]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2111478709 groups=["bucket"]]
 unique_name_in_owner = true
 texture = ExtResource("1_ojsi1")
 

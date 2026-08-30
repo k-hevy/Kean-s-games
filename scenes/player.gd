@@ -24,15 +24,11 @@ func _physics_process(_delta: float) -> void:
 # Updates Player Stats through a match
 func _on_purchase_upgrade(upgrade_name: String, new_value: float) -> void:
 	match upgrade_name:
-		"player_speed":
-			player_speed = new_value
-		"empty_speed":
-			empty_speed = new_value
-		"bucket_capacity":
-			bucket_capacity = new_value
-			
-	
-		
+		"player_speed": player_speed = new_value
+		"empty_speed": empty_speed = new_value
+		"bucket_capacity": bucket_capacity = new_value
+
+
 func get_input() -> void:
 	direction_x = Input.get_axis("left", "right")
 	if is_on_floor() and Input.is_action_just_pressed("jump"):

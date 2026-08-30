@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b2eb05rqitm07"]
 
-[ext_resource type="PackedScene" uid="uid://cv4r1t76hlkss" path="res://scenes/shop.tscn" id="1_jna2d"]
+[ext_resource type="PackedScene" uid="uid://cv4r1t76hlkss" path="res://scenes/ui/shop.tscn" id="1_jna2d"]
 
 [sub_resource type="GDScript" id="GDScript_n64bn"]
 script/source = "extends CanvasLayer
@@ -11,6 +11,7 @@ script/source = "extends CanvasLayer
 @onready var shop_ui:= $Hud_Manager/Shop
 @onready var shop_area:= %Shop_Area
 
+
 func _ready() -> void:
 	
 	shop_area.shop_close.connect(on_close_shop)
@@ -20,15 +21,16 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	set_labels()
-	
+
 
 func on_close_shop():
 	shop_ui.visible = false
-	
-	
+
+
 func on_open_shop():
 	shop_ui.visible = true
-	
+
+
 func set_labels() -> void:
 	water_score.text = \"Water: \" + str(Global.water)
 	token_score.text = \"Tokens: \" + str(Global.tokens)
@@ -39,6 +41,43 @@ func _on_save_button_pressed() -> void:
 "
 
 [sub_resource type="GDScript" id="GDScript_jna2d"]
+
+[sub_resource type="GDScript" id="GDScript_g4v7s"]
+script/source = "extends Node2D
+
+
+func _spawn_pop_text(txt: String, world_pos: Vector2) -> void:
+	
+	var screen_pos: Vector2
+	var camera = get_viewport().get_camera_2d() #Gets the Camera being used
+	if camera:
+		# Translate world coordiantes --> Canvas Layer cordinates
+		screen_pos = camera.get_canvas_transform() * world_pos
+	else:
+		screen_pos = world_pos 
+		
+	#Initialization
+	var label = Label.new()
+	label.text = txt
+	label.global_position = screen_pos +  Vector2(-10, -20)
+	if label.text == \"full\":
+		label.modulate = Color(0.733, 0.051, 0.0, 1.0)
+	else: 
+		label.modulate = Color(0.0, 0.428, 0.803, 1.0)
+	self.get_parent().add_child(label)
+	
+	# Tells the twin to run all aniamtions simultaneously
+	var text_tween = create_tween().set_parallel(true)
+	
+	# obj, property, final position, duration
+	var target_position = Vector2(label.global_position.x, label.global_position.y - 30.0)
+	text_tween.tween_property(label, \"global_position\", target_position, 0.6)
+	var target_color = Color(label.modulate.r, label.modulate.g, label.modulate.b, 0)
+	text_tween.tween_property(label, \"modulate\", target_color, 0.6)
+	
+	# Pauses parallel behavior and deletes the text
+	text_tween.chain().tween_callback(label.queue_free)
+"
 
 [node name="Game_Hud" type="CanvasLayer" unique_id=1812007228]
 script = SubResource("GDScript_n64bn")
@@ -78,5 +117,10 @@ offset_right = 311.0
 offset_bottom = 37.0
 text = "SAVE"
 script = SubResource("GDScript_jna2d")
+
+[node name="Text_Spawner" type="Node2D" parent="Hud_Manager" unique_id=1433181125]
+unique_name_in_owner = true
+position = Vector2(264, 6)
+script = SubResource("GDScript_g4v7s")
 
 [connection signal="pressed" from="Hud_Manager/Save_button" to="." method="_on_save_button_pressed"]

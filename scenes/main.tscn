@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://br2n7gupbh616" path="res://graphics/sky.aseprite" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dtsnvmu3ynaa6" path="res://graphics/foreground.aseprite" id="3_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://bh7iijwtbnyx3" path="res://graphics/ground.aseprite" id="4_tipki"]
-[ext_resource type="PackedScene" uid="uid://d0bf4lkjbkfv1" path="res://scenes/sell.tscn" id="8_tipki"]
-[ext_resource type="PackedScene" uid="uid://d1tt3wsdnbmyh" path="res://scenes/shop_area.tscn" id="9_85g3d"]
-[ext_resource type="PackedScene" uid="uid://b2eb05rqitm07" path="res://scenes/game_hud.tscn" id="9_choun"]
+[ext_resource type="PackedScene" uid="uid://d0bf4lkjbkfv1" path="res://scenes/objects/sell_area.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://d1tt3wsdnbmyh" path="res://scenes/objects/shop_area.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://b2eb05rqitm07" path="res://scenes/ui/game_hud.tscn" id="9_choun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(2145, 15.5)
@@ -79,5 +79,6 @@ z_index = 1
 position = Vector2(374, 136)
 
 [node name="Game_Hud" parent="." unique_id=1812007228 instance=ExtResource("9_choun")]
+unique_name_in_owner = true
 
 [connection signal="timeout" from="Timers/Spawn_Cloud" to="." method="_on_spawn_cloud_timeout"]

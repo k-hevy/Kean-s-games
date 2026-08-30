@@ -13,7 +13,8 @@ var upgrade_data: Dictionary = {}
 var levels: Dictionary = {
 	"bucket_capacity": 0,
 	"player_speed": 0,
-	"empty_speed": 0
+	"empty_speed": 0,
+	"raindrop_value": 0
 }
 
 # Currencies

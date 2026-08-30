@@ -34,6 +34,8 @@ enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
 raindrops=""
 Player=""
+clouds=""
+bucket=""
 
 [input]
 

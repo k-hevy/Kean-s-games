@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://c2hyyw4lksfhf"]
 
-[ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_6iw28"]
-[ext_resource type="Script" uid="uid://cbgbhx0gx5dja" path="res://scripts/Slot.gd" id="1_f3j4h"]
+[ext_resource type="Script" uid="uid://cbgbhx0gx5dja" path="res://scripts/Slot.gd" id="1_7f3p0"]
+[ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="2_3fgwo"]
 
 [node name="Slot" type="Panel" unique_id=1833989276 node_paths=PackedStringArray("texture_upgrade", "name_upgrade", "level_upgrade", "cost_upgrade", "button_upgrade")]
 custom_minimum_size = Vector2(160, 220)
 offset_right = 160.0
 offset_bottom = 220.0
-script = ExtResource("1_f3j4h")
+script = ExtResource("1_7f3p0")
 texture_upgrade = NodePath("MarginContainer/VBoxContainer/Texture")
 name_upgrade = NodePath("MarginContainer/VBoxContainer/Name")
 level_upgrade = NodePath("MarginContainer/VBoxContainer/Level")
@@ -32,7 +32,7 @@ layout_mode = 2
 [node name="Texture" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1436346550]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-texture = ExtResource("1_6iw28")
+texture = ExtResource("2_3fgwo")
 expand_mode = 1
 stretch_mode = 5
 

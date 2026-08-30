@@ -5,16 +5,22 @@
 [sub_resource type="GDScript" id="GDScript_jyhfs"]
 script/source = "extends Node2D
 
-@export var speed: int = 100
 signal spawn_raindrop(spanwn_pos: Vector2)
 
-var is_fading := false
-var choices = [-1, 1]
-var direct: int
-var lifespan: float = 0.0
-var tween: Tween
-var MAX_LIFESPAN = 6.0
-var FADE = 1.4
+var tween: Tween # tween
+var is_fading := false #Fade before being queued
+var choices = [-1, 1] #picks random direction
+var direct: int #actual directioon
+
+#Fallbacks
+@export var speed: int
+@export var size: float
+@export var rain_drop_spawn_interval: float
+@export var base_value: float
+@export var lifespan: float = 0
+@export var MAX_LIFESPAN: float
+@export var FADE = 1.4
+@export var texture: float # change to textur 2D
 
 
 func _ready() -> void:
@@ -39,17 +45,12 @@ func _spanwn_raindrop_timer() -> void:
 	var random_x = randf_range(-width / 2, width /2)
 	var spawn_pos = global_position + Vector2(random_x, 15)
 	spawn_raindrop.emit(spawn_pos)
-
-
-func _life_span_timer() -> void:
-	lifespan += 1
-	
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(48, 20)
 
-[node name="Cloud" type="Area2D" unique_id=1300425149]
+[node name="Cloud" type="Area2D" unique_id=1300425149 groups=["clouds"]]
 script = SubResource("GDScript_jyhfs")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1876530018]
