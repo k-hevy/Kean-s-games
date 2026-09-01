@@ -5,9 +5,6 @@
 [sub_resource type="GDScript" id="GDScript_g4v7s"]
 script/source = "extends Area2D
 
-signal shop_open()
-signal shop_close()
-
 var in_range: bool = false
 var is_shop_visible: bool = false
 
@@ -21,17 +18,17 @@ func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group(\"Player\"):
 		in_range = false
 		is_shop_visible = false
-		shop_close.emit()
+		EventBus.shop_close.emit()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if in_range and event.is_action_pressed(\"interact\") and !is_shop_visible:
 		is_shop_visible = !is_shop_visible
-		shop_open.emit()
+		EventBus.shop_open.emit()
 		
 	elif in_range and event.is_action_pressed(\"interact\") and is_shop_visible:
 		is_shop_visible = !is_shop_visible
-		shop_close.emit()
+		EventBus.shop_close.emit()
 		
 		## When you press a key, Godot offers it to the UI elements first. 
 		## If the UI doesn't use it, Godot passes it to _unhandled_input().

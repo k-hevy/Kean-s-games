@@ -12,7 +12,6 @@ script/source = "extends Area2D
 @onready var sprite: Sprite2D = %Sprite2D
 var pop_tween: Tween
 
-signal spawn_text(text: String, pos: Vector2)
 
 func _process(_delta: float) -> void:
 	
@@ -36,10 +35,10 @@ func _process(_delta: float) -> void:
 func _on_area_entered(raindrop: Area2D) -> void:
 	# checks if the body is a raindrop
 	if raindrop.is_in_group(\"raindrops\"):
-		if Global.water < Global.get_effect(\"bucket_capacity\"):
+		if Global.water < Global.get_effect(Enums.UpgradeType.BUCKET_CAPACITY):
 			Global.water += raindrop.value
-			if Global.water > Global.get_effect(\"bucket_capacity\"):
-				Global.water = Global.get_effect(\"bucket_capacity\") # Sets it so it does go over the max
+			if Global.water > Global.get_effect(Enums.UpgradeType.BUCKET_CAPACITY):
+				Global.water = Global.get_effect(Enums.UpgradeType.BUCKET_CAPACITY) # Sets it so it does go over the max
 			raindrop.queue_free()
 			pop_animation(str(raindrop.value))
 		else:
@@ -60,7 +59,7 @@ func pop_animation(points: String) -> void:
 	pop_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	pop_tween.tween_property(sprite, \"scale\", Vector2(1.0, 1.0), 0.25)
 	
-	spawn_text.emit(points, global_position)
+	EventBus.spawn_text.emit(points, global_position)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]

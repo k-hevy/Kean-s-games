@@ -21,7 +21,7 @@ func _on_timer_timeout() -> void:
 	
 func drain() -> void:
 	if Global.water > 0 and Input.is_action_pressed(\"drain\"):
-		var empty_speed = Global.get_effect(\"empty_speed\")
+		var empty_speed = Global.get_effect(Enums.UpgradeType.EMPTY_SPEED)
 		if Global.water > empty_speed:
 			Global.water -= empty_speed
 			Global.tokens += empty_speed

@@ -10,10 +10,10 @@ extends CharacterBody2D
 @export var bucket_capacity = 25
 
 func _ready() -> void:
-	Global.upgrade_purchased.connect(_on_purchase_upgrade)
-	player_speed = Global.get_effect("player_speed")
-	empty_speed = Global.get_effect("empty_speed")
-	bucket_capacity = Global.get_effect("bucket_capacity")
+	EventBus.upgrade_purchased.connect(_on_purchase_upgrade)
+	player_speed = Global.get_effect(Enums.UpgradeType.PLAYER_SPEED)
+	empty_speed = Global.get_effect(Enums.UpgradeType.EMPTY_SPEED)
+	bucket_capacity = Global.get_effect(Enums.UpgradeType.BUCKET_CAPACITY)
 
 func _physics_process(_delta: float) -> void:
 	get_input()

@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://d3v4cph6o7jjx"
+EventBus="*uid://dadanfjk81pvc"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
 
 [display]
 

@@ -9,15 +9,15 @@ var cloud_variants: Dictionary
 
 
 func _ready() -> void:
+	EventBus.spawn_raindrop.connect(_on_spawn_drop)
 	var file = FileAccess.open(CLOUD_VARIANTS_PATH, FileAccess.READ)
 	cloud_variants = JSON.parse_string(file.get_as_text())
-	var method_owner = %Game_Hud.get_node("Hud_Manager/Text_Spawner")
-	var bucket = $Player.get_node("Bucket")
-	bucket.spawn_text.connect(method_owner._spawn_pop_text)
 
-func _on_spawn_drop(drop_pos : Vector2) -> void:
+
+func _on_spawn_drop(drop_pos : Vector2, base: float) -> void:
 	var rain_drop = RAINDROP_SCENE.instantiate() as Area2D
 	rain_drop.global_position = drop_pos
+	rain_drop.base_value = base
 	%RainDrops.add_child(rain_drop)
 
 
@@ -35,7 +35,4 @@ func _on_spawn_cloud_timeout() -> void:
 	cloud.base_value = data["base_value"]
 	cloud.MAX_LIFESPAN = data["max_lifespan"]
 	cloud.texture = data["texture"]
-	cloud.spawn_raindrop.connect(_on_spawn_drop)
-	%Clouds.add_child(cloud)
-
-	
+	%Clouds.add_child(cloud)	

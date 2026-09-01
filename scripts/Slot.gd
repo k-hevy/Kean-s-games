@@ -1,20 +1,21 @@
 class_name Slot
 extends Panel
 
+@export var upgrade_type: Enums.UpgradeType
+
 @export var texture_upgrade: TextureRect
 @export var name_upgrade: Label
 @export var level_upgrade: Label
 @export var cost_upgrade: Label
 @export var button_upgrade: Button
 
-signal buy_clicked
 
 func _ready() -> void:
 	pass
 	
 	
 func _on_button_upgrade_pressed() -> void:
-	buy_clicked.emit()
+	EventBus.buy_clicked.emit(self)
 	#tells that this button was pressed and emits this signal
 
 

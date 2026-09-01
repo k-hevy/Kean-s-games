@@ -5,14 +5,14 @@
 [sub_resource type="GDScript" id="GDScript_vlwrh"]
 script/source = "extends Area2D
 
-const BASE_VALUE: int = 1
+var base_value: int = 1
 var fall_speed: int = 400
 var value: float
 
 
 func _ready() -> void:
-	Global.upgrade_purchased.connect(_on_purchase_upgrade)
-	value = BASE_VALUE * Global.get_effect(\"raindrop_value\")
+	EventBus.upgrade_purchased.connect(_on_purchase_upgrade)
+	value = base_value * Global.get_effect(Enums.UpgradeType.RAINDROP_VALUE)
 
 
 func _physics_process(_delta: float) -> void:

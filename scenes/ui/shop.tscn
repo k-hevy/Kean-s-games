@@ -14,11 +14,9 @@ script/source = "extends Control
 
 func _ready() -> void:
 	# Emits signals when clicked
-	bucket_capacity_slot.buy_clicked.connect(_on_bucket_capacity_buy_clicked) # hears the emitetd signal frommm buy_clicked
-	player_speed_slot.buy_clicked.connect(_on_player_speed_buy_clicked)
-	bucket_empty_speed_slot.buy_clicked.connect(_on_bucket_empty_speed_buy_clicked)
-	raindrop_value_slot.buy_clicked.connect(_on_buy_raindrop_value_slot_clicked)
+	EventBus.buy_clicked.connect(_on_buy_clicked)
 	
+	print(Enums.UpgradeType.RAINDROP_VALUE)
 	# Updates slots
 	update_all_slots()
 	
@@ -26,52 +24,39 @@ func _ready() -> void:
 	hide()
 
 
-# Buy upgrades
-func _on_bucket_capacity_buy_clicked() -> void:
-	Global.buy_upgrade(\"bucket_capacity\")
+func _on_buy_clicked(clicked_slot: Slot) -> void:
+	var type = clicked_slot.upgrade_type # takes the enum String
+	print(type)
+	Global.buy_upgrade(type)
 	update_all_slots()
 
-func _on_player_speed_buy_clicked() -> void:
-	Global.buy_upgrade(\"player_speed\")
-	update_all_slots()
-	
-func _on_bucket_empty_speed_buy_clicked() -> void:
-	Global.buy_upgrade(\"empty_speed\")
-	update_all_slots()
 
-func _on_buy_raindrop_value_slot_clicked() -> void:
-	Global.buy_upgrade(\"raindrop_value\")
-	update_all_slots()
-	
-	
 # Updates Display
 func update_all_slots() -> void:
 	
 	bucket_capacity_slot.update_upgrade_slot(
 		\"Bucket Capacity\",
-		Global.levels[\"bucket_capacity\"],
-		Global.get_cost(\"bucket_capacity\")
+		Global.get_level(Enums.UpgradeType.BUCKET_CAPACITY),
+		Global.get_cost(Enums.UpgradeType.BUCKET_CAPACITY)
 	)
 	
 	player_speed_slot.update_upgrade_slot(
 		\"Player Speed\",
-		Global.levels[\"player_speed\"],
-		Global.get_cost(\"player_speed\")
+		Global.get_level(Enums.UpgradeType.PLAYER_SPEED),
+		Global.get_cost(Enums.UpgradeType.PLAYER_SPEED)
 	)
 	
 	bucket_empty_speed_slot.update_upgrade_slot(
 		\"Empty Speed\",
-		Global.levels[\"empty_speed\"],
-		Global.get_cost(\"empty_speed\")
+		Global.get_level(Enums.UpgradeType.EMPTY_SPEED),
+		Global.get_cost(Enums.UpgradeType.EMPTY_SPEED)
 	)
 	
 	raindrop_value_slot.update_upgrade_slot(
 		\"Raindrop Value\",
-		Global.levels[\"raindrop_value\"],
-		Global.get_cost(\"raindrop_value\")
+		Global.get_level(Enums.UpgradeType.RAINDROP_VALUE),
+		Global.get_cost(Enums.UpgradeType.RAINDROP_VALUE)
 	)
-	
-	
 
 
 func _on_close_button_pressed() -> void:
@@ -170,12 +155,15 @@ layout_mode = 2
 
 [node name="Player_Speed" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=1718330752 instance=ExtResource("1_ahsc1")]
 layout_mode = 2
+upgrade_type = 1
 
 [node name="Bucket_Empty_Speed" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=620671080 instance=ExtResource("1_ahsc1")]
 layout_mode = 2
+upgrade_type = 2
 
 [node name="Raindrop_Value" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=365208930 instance=ExtResource("1_ahsc1")]
 layout_mode = 2
+upgrade_type = 3
 
 [node name="ShopUpgradeSlot5" parent="Dim/Container/MarginContainer/VBoxContainer/ScrollContainer/GridContainer" unique_id=1416055430 instance=ExtResource("1_ahsc1")]
 layout_mode = 2
