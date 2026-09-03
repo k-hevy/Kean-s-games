@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1tt3wsdnbmyh"]
 
-[ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_isp7q"]
+[ext_resource type="SpriteFrames" uid="uid://ckssbyinuo88d" path="res://graphics/shop.aseprite" id="1_k64rt"]
 
 [sub_resource type="GDScript" id="GDScript_g4v7s"]
 script/source = "extends Area2D
@@ -35,15 +35,18 @@ func _unhandled_input(event: InputEvent) -> void:
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(94, 80)
 
 [node name="shop_area" type="Area2D" unique_id=1011327478]
 collision_layer = 16
 collision_mask = 2
 script = SubResource("GDScript_g4v7s")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1307641710]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_isp7q")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2022197215]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_k64rt")
+autoplay = "default"
+frame_progress = 0.39418408
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2002394041]
 shape = SubResource("RectangleShape2D_g4v7s")

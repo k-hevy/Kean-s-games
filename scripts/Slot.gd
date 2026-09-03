@@ -23,3 +23,9 @@ func update_upgrade_slot(title_text: String, level: int, cost: float) -> void:
 	name_upgrade.text = title_text 
 	level_upgrade.text =  " (Lvl " + str(level) + ")"
 	cost_upgrade.text = "Cost: " + str(snapped(cost, 0.1)) + " Water"
+	
+func set_icon(new_texture: PortableCompressedTexture2D):
+	if new_texture:
+		$MarginContainer/VBoxContainer/Texture.texture = new_texture
+	else:
+		$MarginContainer/VBoxContainer/Texture.texture = preload("res://icon.svg")

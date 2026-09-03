@@ -34,5 +34,5 @@ func _on_spawn_cloud_timeout() -> void:
 	cloud.rain_drop_spawn_interval = data["rain_drop_spawn_interval"]
 	cloud.base_value = data["base_value"]
 	cloud.MAX_LIFESPAN = data["max_lifespan"]
-	cloud.texture = data["texture"]
+	cloud.texture_path = data["texture"]
 	%Clouds.add_child(cloud)	

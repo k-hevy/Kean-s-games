@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d0bf4lkjbkfv1"]
 
-[ext_resource type="Texture2D" uid="uid://b88ly6qarqg5j" path="res://icon.svg" id="1_caxx5"]
+[ext_resource type="SpriteFrames" uid="uid://p8a3e8m4qrtv" path="res://graphics/drain_area.aseprite" id="1_tb35b"]
 
 [sub_resource type="GDScript" id="GDScript_caxx5"]
 script/source = "extends Node2D
@@ -31,7 +31,7 @@ func drain() -> void:
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(129.99998, 140.00002)
+size = Vector2(54.99999, 54.99999)
 
 [node name="Sell" type="Node2D" unique_id=1000930941]
 scale = Vector2(0.2, 0.2)
@@ -40,17 +40,19 @@ script = SubResource("GDScript_caxx5")
 [node name="Timer" type="Timer" parent="." unique_id=1116253607]
 wait_time = 0.5
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=759275716]
-texture = ExtResource("1_caxx5")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1726387713]
+scale = Vector2(8, 8)
+sprite_frames = ExtResource("1_tb35b")
+autoplay = "default"
 
-[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=2105323881]
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D" unique_id=2105323881]
+scale = Vector2(1.0000001, 1.0000001)
 collision_layer = 16
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=592046271]
-scale = Vector2(0.9999998, 0.9999998)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D" unique_id=592046271]
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_exited"]

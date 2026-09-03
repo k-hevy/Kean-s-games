@@ -5,22 +5,22 @@
 		"rain_drop_spawn_interval": 0.1,
 		"base_value": 1,
 		"max_lifespan": 6,
-		"texture": 1
+		"texture": "res://graphics/cloud1.aseprite"
 		},
 	"big_cloud": {
 		"speed": 40,
 		"size": 3,
-		"rain_drop_spawn_interval": 0.4,
+		"rain_drop_spawn_interval": 0.2,
 		"base_value": 1,
 		"max_lifespan": 15,
-		"texture": 1
+		"texture": "res://graphics/cloud_slow.aseprite"
 		},
 	"small_cloud": {
 		"speed": 190,
 		"size": 0.5,
-		"rain_drop_spawn_interval": 0.05,
+		"rain_drop_spawn_interval": 0.1,
 		"base_value": 2,
 		"max_lifespan": 8,
-		"texture": 1
+		"texture": "res://graphics/cloud_fast.aseprite"
 		}
 }

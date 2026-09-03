@@ -22,10 +22,10 @@ var direct: int #actual directioon
 
 
 func _ready() -> void:
-	$AnimatedSprite2D.sprite_frames = load(texture_path)
+	var txt = preload(texture_path)
+	$AnimatedSprite2D.sprite_frames = txt
 	$Spawn_Raindop_Counter.wait_time = rain_drop_spawn_interval
 	direct = choices.pick_random()
-	self.scale = Vector2(size, size)
 
 
 func _physics_process(_delta: float) -> void:
@@ -41,7 +41,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _spawn_raindrop_timer() -> void:
-	var width = 30.0 * scale.x
+	var width = $Sprite2D.texture.get_width() * scale.x
 	var random_x = randf_range(-width / 2, width / 2)
 	var spawn_pos = global_position + Vector2(random_x, 15)
 	EventBus.spawn_raindrop.emit(spawn_pos, base_value)
@@ -52,6 +52,14 @@ size = Vector2(48, 20)
 
 [node name="Cloud" type="Area2D" unique_id=1300425149 groups=["clouds"]]
 script = SubResource("GDScript_jyhfs")
+speed = null
+size = null
+rain_drop_spawn_interval = null
+base_value = null
+lifespan = null
+MAX_LIFESPAN = null
+FADE = null
+texture = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1552570442]
 shape = SubResource("RectangleShape2D_g4v7s")

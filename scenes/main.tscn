@@ -19,12 +19,11 @@ script = ExtResource("1_0wfyh")
 
 [node name="Sky" type="Parallax2D" parent="Background" unique_id=1279917613]
 scroll_scale = Vector2(0.2, 0.2)
-repeat_size = Vector2(640, 180)
-repeat_times = 2
+repeat_size = Vector2(640, 400)
+repeat_times = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Sky" unique_id=1921692461]
 texture = ExtResource("2_tefeu")
-centered = false
 
 [node name="Trees" type="Parallax2D" parent="Background" unique_id=482738561]
 scroll_scale = Vector2(0.5, 0.5)
@@ -32,13 +31,15 @@ repeat_size = Vector2(640, 0)
 repeat_times = 4
 
 [node name="Sprite2D2" type="Sprite2D" parent="Background/Trees" unique_id=468976612]
-position = Vector2(-3, -14)
+position = Vector2(-6, 12)
 texture = ExtResource("3_o6xl0")
 centered = false
 
 [node name="Ground" type="StaticBody2D" parent="Background" unique_id=420825850]
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Ground" unique_id=724787489]
+position = Vector2(-1035, 0)
+scale = Vector2(3.3671873, 1)
 texture = ExtResource("4_tipki")
 centered = false
 
@@ -63,10 +64,11 @@ rotation = -2.8797934
 
 [node name="Shop_Area" parent="objects" unique_id=1011327478 instance=ExtResource("9_85g3d")]
 unique_name_in_owner = true
-position = Vector2(466, 147)
+position = Vector2(471, 127)
 
 [node name="Drain_Area" parent="objects" unique_id=1000930941 instance=ExtResource("8_tipki")]
-position = Vector2(238.00002, 147.00002)
+unique_name_in_owner = true
+position = Vector2(562, 130)
 
 [node name="Clouds" type="Node" parent="objects" unique_id=215910676]
 unique_name_in_owner = true
